@@ -4,6 +4,7 @@ import LandingPage from "../views/LandingPage.vue";
 import Home from "../views/Home.vue";
 import PostShow from "../views/PostShow.vue";
 import Account from "../views/Account.vue";
+import Logout from "../views/Logout.vue";
 
 Vue.use(VueRouter);
 
@@ -27,6 +28,11 @@ const routes = [
     path: "/users/:id",
     name: "Account",
     component: Account,
+  },
+  {
+    path: "/logout",
+    name: "Logout",
+    component: Logout,
   },
   {
     path: "/about",

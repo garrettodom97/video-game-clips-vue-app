@@ -6,9 +6,17 @@
         <h2>{{ post.title }}</h2>
       </router-link>
       <h3>{{ post.user }}</h3>
+      <button v-if="checkIfOnMyAccount()" v-on:click="deletePostModal(post)">Delete</button>
       <VideoJS :src="post.video" />
       <p>{{ post.description }}</p>
     </div>
+    <dialog id="delete">
+      <form method="dialog">
+        <h1>Are you sure you want to delete this post?</h1>
+        <button v-on:click="deletePost()">Yes</button>
+        <button>No</button>
+      </form>
+    </dialog>
   </div>
 </template>
 
@@ -24,6 +32,7 @@ export default {
     return {
       posts: [],
       user: {},
+      currentPost: {},
     };
   },
   created: function () {
@@ -35,6 +44,25 @@ export default {
         this.user = response.data;
         this.posts = this.user.posts;
       });
+    },
+    deletePostModal: function (post) {
+      console.log("Deleting Post");
+      document.querySelector("#delete").showModal();
+      this.currentPost = post;
+    },
+    deletePost: function () {
+      axios.delete("/posts/" + this.currentPost.id).then((response) => {
+        console.log(response.data);
+        var index = this.posts.indexOf(this.currentPost);
+        this.posts.splice(index, 1);
+      });
+    },
+    checkIfOnMyAccount: function () {
+      if (this.user.id == localStorage.getItem("user_id")) {
+        return true;
+      } else {
+        return false;
+      }
     },
   },
 };

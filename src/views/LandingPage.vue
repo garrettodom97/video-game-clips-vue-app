@@ -59,7 +59,7 @@ export default {
   methods: {
     login: function () {
       axios
-        .post("http://localhost:3000/sessions", this.newSessionParams)
+        .post("/sessions", this.newSessionParams)
         .then((response) => {
           console.log(response.data);
           axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.jwt;
@@ -77,7 +77,7 @@ export default {
       document.querySelector("#signup").showModal();
     },
     signup: function () {
-      axios.post("http://localhost:3000/users",this.newUserParams).then((response) => {
+      axios.post("/users", this.newUserParams).then((response) => {
         console.log(response.data);
       })
     }

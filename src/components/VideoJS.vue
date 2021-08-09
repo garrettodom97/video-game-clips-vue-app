@@ -1,6 +1,6 @@
 <template>
   <div class="videojs">
-    <p>{{ src }}</p>
+    <h1>{{ title }}</h1>
     <div class="video-inner-container">
       <video
         id="vid1"
@@ -8,8 +8,8 @@
         preload="auto"
         width="640"
         height="264"
-        class="video-js vjs-fluid vjs-default-skin vjs-big-play-centered"
-        data-setup="{}"
+        class="video-js vjs-default-skin vjs-big-play-centered"
+        data-setup='{}'
       >
         <source :src="src" :type="type" />
       </video>
@@ -18,8 +18,6 @@
 </template>
 
 <script>
-import "../../node_modules/videojs-youtube/dist/Youtube.min.js";
-
 import "../../node_modules/video.js/dist/video-js.min.css";
 
 import "../../node_modules/video.js/dist/video.min.js";
@@ -27,7 +25,7 @@ import "../../node_modules/video.js/dist/video.min.js";
 export default {
   name: "VideoJS",
 
-  props: ["src", "type"],
+  props: ["title", "src", "type"],
 };
 </script>
 

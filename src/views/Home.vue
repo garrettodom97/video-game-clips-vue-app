@@ -3,13 +3,14 @@
     <button v-on:click="newPostModal()">New Post</button>
     <h1>Posts</h1>
     <div v-for="post in posts" :key="post.id">
-      <h2>{{ post.title }}</h2>
-      <h3>{{ post.user.username }}</h3>
-      <img :src="`https://img.youtube.com/vi/${getVideoID(post.video)}/0.jpg`" alt="" />
+      <router-link :to="`/posts/${post.id}`">
+        <h2>{{ post.title }}</h2>
+      </router-link>
+      <router-link :to="`/users/${post.user_id}`">
+        <h3>{{ post.user.username }}</h3>
+      </router-link>
+      <VideoJS :src="post.video" />
       <p>{{ post.description }}</p>
-      <div v-for="comment in post.comments" :key="comment.id">
-        <small>{{ comment.user.username }}: {{ comment.text }}</small>
-      </div>
     </div>
     <dialog id="new">
       <form method="dialog">
@@ -23,8 +24,8 @@
           <input type="text" v-model="newPostParams.description" />
         </p>
         <p>
-          Video URL:
-          <input type="text" v-model="newPostParams.video" />
+          Video:
+          <input type="file" v-on:change="setFile($event)" ref="fileInput" />
         </p>
         <button>Close</button>
         <button v-on:click="createPost()">Create Post</button>
@@ -35,21 +36,33 @@
 
 <script>
 import axios from "axios";
+import VideoJS from "../components/VideoJS.vue";
 
 export default {
   name: "App",
+  components: {
+    VideoJS,
+  },
   data: function () {
     return {
       posts: [],
       newPostParams: {},
+      video: "",
     };
   },
   created: function () {
     this.postsIndex();
   },
   methods: {
+    setFile: function (event) {
+      if (event.target.files.length > 0) {
+        console.log("this works");
+        this.video = event.target.files[0];
+        console.log(this.video);
+      }
+    },
     postsIndex: function () {
-      axios.get("http://localhost:3000/posts").then((response) => {
+      axios.get("/posts").then((response) => {
         console.log(response.data);
         this.posts = response.data;
       });
@@ -60,9 +73,22 @@ export default {
     },
     createPost: function () {
       this.newPostParams.user_id = localStorage.getItem("user_id");
-      axios.post("http://localhost:3000/posts", this.newPostParams).then((response) => {
+      var formData = new FormData();
+      formData.append("title", this.newPostParams.title);
+      formData.append("description", this.newPostParams.description);
+      formData.append("video", this.video);
+      console.log("here it is:", formData);
+
+      let config = {
+        header: {
+          "Content-Type": "multipart/form-data",
+        },
+      };
+      axios.post("/posts", formData, config).then((response) => {
+        console.log(this.video);
         console.log(response.data);
         this.posts.unshift(response.data);
+        this.$refs.fileInput.value = "";
       });
     },
     getVideoID: function (url) {

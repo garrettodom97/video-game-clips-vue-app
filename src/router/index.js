@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import LandingPage from "../views/LandingPage.vue";
 import Home from "../views/Home.vue";
 import PostShow from "../views/PostShow.vue";
+import Account from "../views/Account.vue";
 
 Vue.use(VueRouter);
 
@@ -21,6 +22,11 @@ const routes = [
     path: "/posts/:id",
     name: "PostShow",
     component: PostShow,
+  },
+  {
+    path: "/users/:id",
+    name: "Account",
+    component: Account,
   },
   {
     path: "/about",

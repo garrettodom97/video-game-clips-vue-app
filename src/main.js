@@ -6,6 +6,7 @@ import axios from "axios";
 Vue.config.productionTip = false;
 
 axios.defaults.baseURL = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "/";
+axios.defaults.timeout = 60 * 1000;
 
 var jwt = localStorage.getItem("jwt");
 if (jwt) {

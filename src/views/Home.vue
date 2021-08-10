@@ -1,11 +1,12 @@
 <template>
   <div id="home">
-    <button v-on:click="newPostModal()">New Post</button>
+    <button v-if="isLoggedIn()" v-on:click="newPostModal()">New Post</button>
     <h1>Posts</h1>
     <div v-for="post in posts" :key="post.id">
       <router-link :to="`/posts/${post.id}`">
         <h2>{{ post.title }}</h2>
       </router-link>
+      <p>Posted at: {{ post.created_at }}</p>
       <router-link :to="`/users/${post.user_id}`">
         <h3>{{ post.user.username }}</h3>
       </router-link>
@@ -91,19 +92,12 @@ export default {
         this.$refs.fileInput.value = "";
       });
     },
-    getVideoID: function (url) {
-      var toggle = false;
-      var videoID = "";
-      for (let c = 0; c < url.length; c++) {
-        if (toggle) {
-          videoID += url.charAt(c);
-        }
-        if (url.charAt(c) === "=") {
-          toggle = true;
-        }
+    isLoggedIn: function () {
+      if (localStorage.getItem("jwt")) {
+        return true;
+      } else {
+        return false;
       }
-      console.log(videoID);
-      return videoID;
     },
   },
 };

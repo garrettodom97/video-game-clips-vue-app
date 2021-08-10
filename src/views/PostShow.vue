@@ -1,6 +1,7 @@
 <template>
   <div id="show">
     <h1>{{ post.title }}</h1>
+    <p>Posted at: {{ post.created_at }}</p>
     <h3>{{ post.user.username }}</h3>
     <VideoJS :src="post.video" />
     <button v-if="isLoggedIn()" v-on:click="commentModal()">Add Comment</button>

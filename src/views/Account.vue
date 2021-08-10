@@ -5,6 +5,7 @@
       <router-link :to="`/posts/${post.id}`">
         <h2>{{ post.title }}</h2>
       </router-link>
+      <p>Posted at: {{ post.created_at }}</p>
       <h3>{{ post.user }}</h3>
       <button v-if="checkIfOnMyAccount()" v-on:click="deletePostModal(post)">Delete</button>
       <VideoJS :src="post.video" />

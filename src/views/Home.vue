@@ -1,17 +1,45 @@
 <template>
   <div id="home">
     <button v-if="isLoggedIn()" v-on:click="newPostModal()">New Post</button>
-    <h1>Posts</h1>
     <div v-for="post in posts" :key="post.id">
-      <router-link :to="`/posts/${post.id}`">
-        <h2>{{ post.title }}</h2>
-      </router-link>
-      <p>Posted at: {{ post.created_at }}</p>
-      <router-link :to="`/users/${post.user_id}`">
-        <h3>{{ post.user.username }}</h3>
-      </router-link>
-      <VideoJS :src="post.video" />
-      <p>{{ post.description }}</p>
+      <article class="post">
+        <header>
+          <div class="title">
+            <router-link :to="`/posts/${post.id}`">
+              <h2>{{ post.title }}</h2>
+            </router-link>
+          </div>
+          <div class="meta">
+            <time class="published">{{ post.created_at }}</time>
+            <a href="#" class="author">
+              <span class="name">{{ post.user.username }}</span>
+            </a>
+          </div>
+        </header>
+        <div class="d-flex justify-content-center">
+          <VideoJS :src="post.video" />
+        </div>
+        <p></p>
+        <p>
+          {{ post.description }}
+        </p>
+        <footer>
+          <ul class="actions">
+            <router-link :to="`/posts/${post.id}`">
+              <li><a href="single.html" class="button large">View Post</a></li>
+            </router-link>
+          </ul>
+          <ul class="stats">
+            <!-- <li><a href="#">General</a></li>
+            <li><a href="#" class="icon solid fa-heart">28</a></li> -->
+            <li>
+              <router-link :to="`/posts/${post.id}`">
+                <a href="#" class="icon solid fa-comment">{{ post.comments.length }}</a>
+              </router-link>
+            </li>
+          </ul>
+        </footer>
+      </article>
     </div>
     <dialog id="new">
       <form method="dialog">

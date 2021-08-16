@@ -1,19 +1,21 @@
 <template>
-  <div class="videojs">
+  <div class="videojs vjs-fill">
     <h1>{{ title }}</h1>
-    <div class="video-inner-container">
-      <video
-        id="vid1"
-        controls
-        preload="auto"
-        width="640"
-        height="264"
-        class="video-js vjs-default-skin vjs-big-play-centered"
-        data-setup='{}'
-      >
-        <source :src="src" :type="type" />
-      </video>
-    </div>
+    <center>
+      <div class="video-inner-container">
+        <video
+          id="vid1"
+          controls
+          preload="auto"
+          width="640"
+          height="264"
+          class="video-js vjs-default-skin vjs-fill"
+          data-setup="{}"
+        >
+          <source :src="src" :type="type" />
+        </video>
+      </div>
+    </center>
   </div>
 </template>
 

@@ -1,5 +1,6 @@
 <template>
   <div class="landingPage">
+    <p></p>
     <h1>Welcome to</h1>
     <h1>{{ name }}</h1>
     <form class="d-flex justify-content-center" v-on:submit.prevent="login()">

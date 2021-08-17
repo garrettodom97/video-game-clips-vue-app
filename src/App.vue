@@ -3,7 +3,7 @@
     <div class="header">
       <!-- Header -->
       <header id="header">
-        <h1><a href="/">Be Cool! Be Gamer!</a></h1>
+        <h1><a href="/home">Be Cool! Be Gamer!</a></h1>
         <nav class="links">
           <ul>
             <li v-if="!isLoggedIn()"><a href="/">Login</a></li>

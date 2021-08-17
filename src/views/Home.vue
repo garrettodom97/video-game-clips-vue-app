@@ -1,6 +1,6 @@
 <template>
   <div id="home">
-    <button v-if="isLoggedIn()" v-on:click="newPostModal()">New Post</button>
+    <button id="new_post" v-if="isLoggedIn()" v-on:click="newPostModal()">New Post</button>
     <div v-for="post in posts" :key="post.id">
       <article class="post">
         <header>
@@ -130,3 +130,15 @@ export default {
   },
 };
 </script>
+
+<style>
+#new_post {
+  width: 100%;
+  position: sticky;
+}
+/* .post {
+  width: 80%;
+  justify-content: center;
+  text-align: center;
+} */
+</style>

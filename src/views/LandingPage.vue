@@ -2,19 +2,23 @@
   <div class="landingPage">
     <h1>Welcome to</h1>
     <h1>{{ name }}</h1>
-    <form v-on:submit.prevent="login()">
+    <form class="d-flex justify-content-center" v-on:submit.prevent="login()">
       <h2>Login</h2>
       <ul>
         <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
       </ul>
-      <div>
+      <div id="login-div">
         <label>Username:</label>
-        <input type="text" v-model="newSessionParams.username" />
+        <div class="d-flex justify-content-center">
+          <input id="login" type="text" v-model="newSessionParams.username" />
+        </div>
+        <p></p>
       </div>
-      <div>
+      <div id="login-div">
         <label>Password:</label>
-        <input type="password" v-model="newSessionParams.password" />
+        <input id="login" type="password" v-model="newSessionParams.password" />
       </div>
+      <p></p>
       <input type="submit" value="Submit" />
     </form>
     <p>
@@ -79,8 +83,20 @@ export default {
     signup: function () {
       axios.post("/users", this.newUserParams).then((response) => {
         console.log(response.data);
-      })
-    }
+      });
+    },
   },
 };
 </script>
+
+<style>
+#login {
+  width: 100%;
+  text-align: center;
+}
+#login-div {
+  text-align: center;
+  width: 30%;
+  justify-content: center;
+}
+</style>

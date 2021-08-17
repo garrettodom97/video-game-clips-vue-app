@@ -1,25 +1,44 @@
 <template>
   <div id="show">
-    <h1>{{ post.title }}</h1>
-    <p>Posted at: {{ post.created_at }}</p>
-    <h3>{{ post.user.username }}</h3>
-    <VideoJS :src="post.video" />
-    <button v-if="isLoggedIn()" v-on:click="commentModal()">Add Comment</button>
-    <div v-for="comment in post.comments" :key="comment.id">
-      <h4>{{ comment.user.username }}</h4>
-      <p>{{ comment.text }}</p>
-    </div>
-    <dialog id="comment">
-      <form method="dialog">
-        <h1>Create a new post!</h1>
-        <p>
-          Text:
-          <input type="text" v-model="newCommentParams.text" />
-        </p>
-        <button>Close</button>
-        <button v-on:click="createComment()">Create Comment</button>
-      </form>
-    </dialog>
+    <article class="post">
+      <header>
+        <div class="title">
+          <router-link :to="`/posts/${post.id}`">
+            <h2>{{ post.title }}</h2>
+          </router-link>
+        </div>
+        <div class="meta">
+          <time class="published">{{ post.created_at }}</time>
+          <a href="#" class="author">
+            <span class="name">{{ post.user.username }}</span>
+          </a>
+        </div>
+      </header>
+      <div class="d-flex justify-content-center">
+        <VideoJS :src="post.video" />
+      </div>
+      <p></p>
+      <p>
+        {{ post.description }}
+      </p>
+      <p></p>
+      <h2>Comments</h2>
+      <div v-for="comment in post.comments" :key="comment.id">
+        <section>
+          <ul class="posts">
+            <li>
+              <article>
+                <header>
+                  <h3>{{ comment.user.username }}</h3>
+                  <time class="published">{{ comment.created_at }}</time>
+                  <p>{{ comment.text }}</p>
+                </header>
+              </article>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </article>
   </div>
 </template>
 
@@ -70,3 +89,9 @@ export default {
   },
 };
 </script>
+
+<style>
+p {
+  text-align: center;
+}
+</style>

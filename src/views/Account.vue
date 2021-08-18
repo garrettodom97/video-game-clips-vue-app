@@ -1,15 +1,48 @@
 <template>
   <div>
+    <p></p>
     <h1>{{ user.username }}'s Page</h1>
-    <div v-for="post in posts" :key="post.id">
-      <router-link :to="`/posts/${post.id}`">
-        <h2>{{ post.title }}</h2>
-      </router-link>
-      <p>Posted at: {{ post.created_at }}</p>
-      <h3>{{ post.user }}</h3>
-      <button v-if="checkIfOnMyAccount()" v-on:click="deletePostModal(post)">Delete</button>
-      <VideoJS :src="post.video" />
-      <p>{{ post.description }}</p>
+    <div class="post-image-body" v-for="post in posts" :key="post.id">
+      <article class="post">
+        <header>
+          <div class="title">
+            <router-link :to="`/posts/${post.id}`">
+              <h2>{{ post.title }}</h2>
+            </router-link>
+          </div>
+          <div class="meta">
+            <time class="published">{{ post.created_at }}</time>
+            <a href="#" class="author">
+              <router-link :to="`/users/${post.user_id}`">
+                <span class="name">{{ user.username }}</span>
+              </router-link>
+            </a>
+          </div>
+        </header>
+        <div class="post-image-body">
+          <VideoJS :src="post.video" />
+        </div>
+        <p></p>
+        <p>
+          {{ post.description }}
+        </p>
+        <footer>
+          <ul class="actions">
+            <router-link :to="`/posts/${post.id}`">
+              <li><a href="single.html" class="button large">View Post</a></li>
+            </router-link>
+          </ul>
+          <!-- <ul class="stats">
+            <li><a href="#">General</a></li>
+            <li><a href="#" class="icon solid fa-heart">28</a></li>
+            <li>
+              <router-link :to="`/posts/${post.id}`">
+                <a href="#" class="icon solid fa-comment">{{ post.comments.length }}</a>
+              </router-link>
+            </li>
+          </ul> -->
+        </footer>
+      </article>
     </div>
     <dialog id="delete">
       <form method="dialog">

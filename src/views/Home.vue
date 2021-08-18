@@ -1,7 +1,7 @@
 <template>
   <div id="home">
     <button id="new_post" v-if="isLoggedIn()" v-on:click="newPostModal()">New Post</button>
-    <div v-for="post in posts" :key="post.id">
+    <div class="post-image-body" v-for="post in posts" :key="post.id">
       <article class="post">
         <header>
           <div class="title">
@@ -12,11 +12,13 @@
           <div class="meta">
             <time class="published">{{ post.created_at }}</time>
             <a href="#" class="author">
-              <span class="name">{{ post.user.username }}</span>
+              <router-link :to="`/users/${post.user_id}`">
+                <span class="name">{{ post.user.username }}</span>
+              </router-link>
             </a>
           </div>
         </header>
-        <div class="d-flex justify-content-center">
+        <div class="post-image-body">
           <VideoJS :src="post.video" />
         </div>
         <p></p>
@@ -136,9 +138,31 @@ export default {
   width: 100%;
   position: sticky;
 }
-/* .post {
-  width: 80%;
-  justify-content: center;
+.post {
+  width: 85%;
+}
+.post-image-body {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.post-image-body * {
+  flex: 1 1 auto;
   text-align: center;
-} */
+  margin: 5px;
+}
+.flex-down {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.flex-down * {
+  margin: 10px;
+}
+header {
+  height: 50%;
+}
 </style>

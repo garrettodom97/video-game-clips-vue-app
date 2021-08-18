@@ -3,12 +3,12 @@
     <p></p>
     <h1>Welcome to</h1>
     <h1>{{ name }}</h1>
-    <form class="d-flex justify-content-center" v-on:submit.prevent="login()">
+    <form class="post-image-body" v-on:submit.prevent="login()">
       <h2>Login</h2>
       <ul>
         <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
       </ul>
-      <div id="login-div">
+      <div id="login-div" class="d-flex">
         <label>Username:</label>
         <div class="d-flex justify-content-center">
           <input id="login" type="text" v-model="newSessionParams.username" />
@@ -99,5 +99,26 @@ export default {
   text-align: center;
   width: 30%;
   justify-content: center;
+}
+.post-image-body {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.post-image-body * {
+  flex: 1 1 auto;
+  text-align: center;
+  margin: 5px;
+}
+.flex-down {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.flex-down * {
+  margin: 10px;
 }
 </style>

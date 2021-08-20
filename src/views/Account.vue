@@ -2,7 +2,7 @@
   <div>
     <p></p>
     <h1>{{ user.username }}'s Page</h1>
-    <div class="post-image-body" v-for="post in posts" :key="post.id">
+    <div class="post-image-body" v-for="post in orderBy(posts, 'created_at', -1)" :key="post.id">
       <article class="post">
         <header>
           <div class="title">
@@ -58,8 +58,10 @@
 <script>
 import axios from "axios";
 import VideoJS from "../components/VideoJS.vue";
+import Vue2Filters from "vue2-filters";
 
 export default {
+  mixins: [Vue2Filters.mixin],
   components: {
     VideoJS,
   },

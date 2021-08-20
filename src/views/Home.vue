@@ -1,7 +1,16 @@
 <template>
   <div id="home">
+    <p></p>
     <button id="new_post" v-if="isLoggedIn()" v-on:click="newPostModal()">New Post</button>
-    <div class="post-image-body" v-for="post in posts" :key="post.id">
+    <p></p>
+    <div id="search">
+      <input id="search-bar" type="text" placeholder="search" v-model="searchWord" />
+    </div>
+    <div
+      class="post-image-body"
+      v-for="post in filterBy(posts, searchWord, 'title', 'user.username', 'description')"
+      :key="post.id"
+    >
       <article class="post">
         <header>
           <div class="title">
@@ -11,10 +20,8 @@
           </div>
           <div class="meta">
             <time class="published">{{ post.created_at }}</time>
-            <a href="#" class="author">
-              <router-link :to="`/users/${post.user_id}`">
-                <span class="name">{{ post.user.username }}</span>
-              </router-link>
+            <a :href="`/users/${post.user_id}`" class="author">
+              <span class="name">{{ post.user.username }}</span>
             </a>
           </div>
         </header>
@@ -27,17 +34,13 @@
         </p>
         <footer>
           <ul class="actions">
-            <router-link :to="`/posts/${post.id}`">
-              <li><a href="single.html" class="button large">View Post</a></li>
-            </router-link>
+            <li><a :href="`/posts/${post.id}`" class="button large">View Post</a></li>
           </ul>
           <ul class="stats">
             <!-- <li><a href="#">General</a></li>
             <li><a href="#" class="icon solid fa-heart">28</a></li> -->
             <li>
-              <router-link :to="`/posts/${post.id}`">
-                <a href="#" class="icon solid fa-comment">{{ post.comments.length }}</a>
-              </router-link>
+              <a :href="`/posts/${post.id}`" class="icon solid fa-comment">{{ post.comments.length }}</a>
             </li>
           </ul>
         </footer>
@@ -68,8 +71,10 @@
 <script>
 import axios from "axios";
 import VideoJS from "../components/VideoJS.vue";
+import Vue2Filters from "vue2-filters";
 
 export default {
+  mixins: [Vue2Filters.mixin],
   name: "App",
   components: {
     VideoJS,
@@ -79,6 +84,7 @@ export default {
       posts: [],
       newPostParams: {},
       video: "",
+      searchWord: "",
     };
   },
   created: function () {
@@ -135,11 +141,21 @@ export default {
 
 <style>
 #new_post {
-  width: 100%;
+  width: 35%;
   position: sticky;
 }
 .post {
   width: 85%;
+}
+#search {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+}
+#search-bar {
+  width: 35%;
+  text-align: center;
 }
 .post-image-body {
   display: flex;
@@ -162,7 +178,15 @@ export default {
 .flex-down * {
   margin: 10px;
 }
-header {
-  height: 50%;
+.post > header .title {
+  padding: 0em 0em 0em 0em;
+}
+.post > header .meta {
+  padding: 1.5em 0em 0em 0em;
+}
+a,
+a:active,
+a:focus {
+  outline: none;
 }
 </style>

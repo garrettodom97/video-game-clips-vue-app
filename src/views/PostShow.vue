@@ -132,4 +132,10 @@ p {
 .flex-down * {
   margin: 10px;
 }
+.post > header .title {
+  padding: 0em 0em 0em 0em;
+}
+.post > header .meta {
+  padding: 1.5em 0em 0em 0em;
+}
 </style>

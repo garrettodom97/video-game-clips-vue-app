@@ -28,9 +28,10 @@
         </p>
         <footer>
           <ul class="actions">
-            <router-link :to="`/posts/${post.id}`">
-              <li><a href="single.html" class="button large">View Post</a></li>
-            </router-link>
+            <li><a :href="`/posts/${post.id}`" class="button large">View Post</a></li>
+            <li v-if="checkIfOnMyAccount()">
+              <button v-on:click="deletePostModal(post)" class="button large">Delete Post</button>
+            </li>
           </ul>
           <!-- <ul class="stats">
             <li><a href="#">General</a></li>
@@ -101,3 +102,12 @@ export default {
   },
 };
 </script>
+
+<style>
+.post > header .title {
+  padding: 0em 0em 0em 0em;
+}
+.post > header .meta {
+  padding: 1.5em 0em 0em 0em;
+}
+</style>

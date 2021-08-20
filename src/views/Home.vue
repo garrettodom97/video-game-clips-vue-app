@@ -160,9 +160,10 @@ export default {
 .post-image-body {
   display: flex;
   align-items: center;
-  padding: 10px;
+  padding: 0px;
   justify-content: space-between;
   flex-direction: column;
+  position: relative;
 }
 .post-image-body * {
   flex: 1 1 auto;
@@ -188,5 +189,17 @@ a,
 a:active,
 a:focus {
   outline: none;
+}
+.video-js {
+  position: relative !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+.vjs-poster {
+  position: absolute !important;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
 }
 </style>

@@ -9,8 +9,8 @@
           preload="auto"
           width="640"
           height="264"
-          class="video-js vjs-default-skin vjs-fill"
-          data-setup="{}"
+          class="video-js vjs-default-skin"
+          data-setup='{"fluid": "true"}'
         >
           <source :src="src" :type="type" />
         </video>

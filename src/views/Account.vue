@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="account">
     <p></p>
     <h1>{{ user.username }}'s Page</h1>
     <div class="post-image-body" v-for="post in orderBy(posts, 'created_at', -1)" :key="post.id">
@@ -12,10 +12,8 @@
           </div>
           <div class="meta">
             <time class="published">{{ post.created_at }}</time>
-            <a href="#" class="author">
-              <router-link :to="`/users/${post.user_id}`">
-                <span class="name">{{ user.username }}</span>
-              </router-link>
+            <a :href="`/users/${post.user_id}`" class="author">
+              <span class="name">{{ user.username }}</span>
             </a>
           </div>
         </header>
@@ -62,6 +60,7 @@ import Vue2Filters from "vue2-filters";
 
 export default {
   mixins: [Vue2Filters.mixin],
+  name: "account",
   components: {
     VideoJS,
   },
@@ -111,5 +110,17 @@ export default {
 }
 .post > header .meta {
   padding: 1.5em 0em 0em 0em;
+}
+.video-js {
+  position: relative !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+.vjs-poster {
+  position: absolute !important;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
 }
 </style>

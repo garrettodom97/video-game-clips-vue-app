@@ -31,15 +31,17 @@
               <button v-on:click="deletePostModal(post)" class="button large">Delete Post</button>
             </li>
           </ul>
-          <!-- <ul class="stats">
-            <li><a href="#">General</a></li>
-            <li><a href="#" class="icon solid fa-heart">28</a></li>
+          <ul class="stats">
+            <!-- <li><a href="#">General</a></li> -->
+            <li>
+              <a v-on:click="like(post)" class="icon solid fa-heart">{{ post.likes.length }}</a>
+            </li>
             <li>
               <router-link :to="`/posts/${post.id}`">
                 <a href="#" class="icon solid fa-comment">{{ post.comments.length }}</a>
               </router-link>
             </li>
-          </ul> -->
+          </ul>
         </footer>
       </article>
     </div>
@@ -95,6 +97,38 @@ export default {
     },
     checkIfOnMyAccount: function () {
       if (this.user.id == localStorage.getItem("user_id")) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    like: function (post) {
+      console.log("determining if post is already liked");
+      var userLikes = this.filterBy(post.likes, localStorage.getItem("user_id"), "user_id");
+      console.log(userLikes);
+      if (!this.isLoggedIn()) {
+        return;
+      }
+      if (userLikes.length === 0) {
+        var likeParams = { user_id: localStorage.getItem("user_id"), post_id: post.id };
+        axios.post("/likes", likeParams).then((response) => {
+          console.log("Added like", response.data);
+          post.likes.push(response.data);
+        });
+      } else {
+        axios.delete("/likes/" + userLikes[0].id).then((response) => {
+          console.log("deleting like", response.data);
+          var pos = post.likes
+            .map(function (e) {
+              return e.id;
+            })
+            .indexOf(userLikes[0].id);
+          post.likes.splice(pos, 1);
+        });
+      }
+    },
+    isLoggedIn: function () {
+      if (localStorage.getItem("jwt")) {
         return true;
       } else {
         return false;

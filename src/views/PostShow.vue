@@ -43,6 +43,14 @@
         </div>
         <p></p>
         <button v-if="isLoggedIn()" v-on:click="commentModal()">Add Comment</button>
+        <footer>
+          <ul class="stats">
+            <!-- <li><a href="#">General</a></li> -->
+            <li>
+              <a v-on:click="like(post)" class="icon solid fa-heart">{{ post.likes.length }}</a>
+            </li>
+          </ul>
+        </footer>
       </article>
     </div>
     <dialog id="comment">
@@ -62,8 +70,10 @@
 <script>
 import axios from "axios";
 import VideoJS from "../components/VideoJS.vue";
+import Vue2Filters from "vue2-filters";
 
 export default {
+  mixins: [Vue2Filters.mixin],
   name: "Show",
   components: {
     VideoJS,
@@ -102,6 +112,31 @@ export default {
         console.log(response.data);
         this.post.comments.push(response.data);
       });
+    },
+    like: function (post) {
+      console.log("determining if post is already liked");
+      var userLikes = this.filterBy(post.likes, localStorage.getItem("user_id"), "user_id");
+      console.log(userLikes);
+      if (!this.isLoggedIn()) {
+        return;
+      }
+      if (userLikes.length === 0) {
+        var likeParams = { user_id: localStorage.getItem("user_id"), post_id: post.id };
+        axios.post("/likes", likeParams).then((response) => {
+          console.log("Added like", response.data);
+          post.likes.push(response.data);
+        });
+      } else {
+        axios.delete("/likes/" + userLikes[0].id).then((response) => {
+          console.log("deleting like", response.data);
+          var pos = post.likes
+            .map(function (e) {
+              return e.id;
+            })
+            .indexOf(userLikes[0].id);
+          post.likes.splice(pos, 1);
+        });
+      }
     },
   },
 };

@@ -115,7 +115,7 @@ export default {
     },
     like: function (post) {
       console.log("determining if post is already liked");
-      var userLikes = this.filterBy(post.likes, localStorage.getItem("user_id"), "user_id");
+      var userLikes = this.filterBy(post.likes, (like) => like.user_id == localStorage.getItem("user_id"));
       console.log(userLikes);
       if (!this.isLoggedIn()) {
         return;

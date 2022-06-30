@@ -5,7 +5,7 @@
       <header id="header">
         <h1><a href="/home">Be Cool! Be Gamer!</a></h1>
         <nav class="links">
-          <ul>
+          <ul class="posts-link">
             <li><a href="/home">Posts</a></li>
           </ul>
         </nav>
@@ -168,5 +168,10 @@ export default {
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+.posts-link {
+  position: relative;
+  right: 95px;
 }
 </style>

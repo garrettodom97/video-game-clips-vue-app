@@ -1,8 +1,9 @@
 <template>
   <div class="landingPage">
     <p></p>
-    <h1>Welcome to</h1>
-    <h1>{{ name }}</h1>
+    <h1 class="welcome">Welcome to</h1>
+    <h1 class="gradient-text">{{ name }}</h1>
+    <h3>{{ description }}</h3>
     <form class="post-image-body" v-on:submit.prevent="login()">
       <h2>Login</h2>
       <ul>
@@ -56,6 +57,7 @@ export default {
   data: function () {
     return {
       name: "Be Cool! Be Gamer!",
+      description: "A video game clips blog site",
       newSessionParams: {},
       newUserParams: {},
       errors: [],
@@ -120,5 +122,17 @@ export default {
 }
 .flex-down * {
   margin: 10px;
+}
+
+.welcome {
+  margin: 0;
+}
+
+.gradient-text {
+  font-size: 40px;
+  background: -webkit-linear-gradient(left, #A82DE2, #E22DCC, #2DE2D2, #2DE29E);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0;
 }
 </style>

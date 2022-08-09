@@ -38,10 +38,10 @@
           </ul>
           <ul class="stats">
             <!-- <li><a href="#">General</a></li> -->
-            <li>
+            <li v-if="isLoggedIn()">
               <a v-on:click="like(post)" class="icon solid fa-heart">{{ post.likes.length }}</a>
             </li>
-            <li>
+            <li v-if="isLoggedIn()">
               <a :href="`/posts/${post.id}`" class="icon solid fa-comment">{{ post.comments.length }}</a>
             </li>
           </ul>

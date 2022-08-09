@@ -19,7 +19,7 @@
           <!-- Actions -->
           <section>
             <ul class="actions stacked">
-              <li><a class="button large fit" href="/home">All Posts</a></li>
+              <li v-if="isLoggedIn()"><a class="button large fit" href="/home">All Posts</a></li>
               <li v-if="isLoggedIn()">
                 <button v-on:click="getUserID()" class="button large fit">My Account</button>
               </li>
